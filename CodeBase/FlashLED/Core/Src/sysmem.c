@@ -24,6 +24,7 @@
 /* Includes */
 #include <errno.h>
 #include <stdio.h>
+#include <sys/types.h>
 
 /* Variables */
 extern int errno;
@@ -37,15 +38,17 @@ register char * stack_ptr asm("sp");
 **/
 caddr_t _sbrk(int incr)
 {
-	extern char end asm("end");
+	extern char end; // Defined by the linker
+	extern char _estack; // Top of stack, defined by the linker script
 	static char *heap_end;
 	char *prev_heap_end;
+	char *stack_limit = &_estack;
 
 	if (heap_end == 0)
 		heap_end = &end;
 
 	prev_heap_end = heap_end;
-	if (heap_end + incr > stack_ptr)
+	if ((heap_end + incr) > stack_limit)
 	{
 		errno = ENOMEM;
 		return (caddr_t) -1;
@@ -55,4 +58,3 @@ caddr_t _sbrk(int incr)
 
 	return (caddr_t) prev_heap_end;
 }
-
