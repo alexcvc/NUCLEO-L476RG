@@ -102,6 +102,27 @@ int main(void) {
 		HAL_GPIO_WritePin(GPIOA, myled1, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(GPIOA, myled2, GPIO_PIN_SET);
 		HAL_Delay(1000);
+		HAL_GPIO_WritePin(GPIOA, myled1, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOA, myled2, GPIO_PIN_RESET);
+		HAL_Delay(500);
+		HAL_GPIO_WritePin(GPIOA, myled1, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOA, myled2, GPIO_PIN_SET);
+		HAL_Delay(250);
+		HAL_GPIO_WritePin(GPIOA, myled1, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOA, myled2, GPIO_PIN_RESET);
+		HAL_Delay(100);
+		HAL_GPIO_WritePin(GPIOA, myled1, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOA, myled2, GPIO_PIN_SET);
+		HAL_Delay(50);
+		// generate cycle with delay 200 ms
+		for (int i = 0; i < 20; i++) {
+			HAL_GPIO_WritePin(GPIOA, myled1, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, myled2, GPIO_PIN_RESET);
+			HAL_Delay(200);
+			HAL_GPIO_WritePin(GPIOA, myled1, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, myled2, GPIO_PIN_SET);
+			HAL_Delay(200);
+		}
 	}
 	/* USER CODE END 3 */
 }
