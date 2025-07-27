@@ -1,0 +1,15 @@
+# .clangd
+# Enable misc-include-cleaner
+Diagnostics:
+  UnusedIncludes: Strict
+  MissingIncludes: None
+CompileFlags:
+  # Workaround erroneous detection of float128 support by clang
+  Add: -DFMT_USE_FLOAT128=0
+---
+# Disable clang-tidy for subModules
+If:
+  PathMatch: subModules/.*
+Diagnostics:
+  ClangTidy:
+    Remove: "*"

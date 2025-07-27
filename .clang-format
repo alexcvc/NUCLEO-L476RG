@@ -1,0 +1,21 @@
+---
+Language:        Cpp
+BasedOnStyle: Google
+AllowShortBlocksOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: Empty
+AllowShortLoopsOnASingleLine: false
+ColumnLimit: 120
+DerivePointerAlignment: false
+IncludeCategories:
+  - Regex: '\/.*(\.h|\.hpp)>'
+    Priority: 3
+  - Regex: '\.h>'
+    Priority: 1
+  - Regex: '^<.*'
+    Priority: 2
+  - Regex: '"'
+    Priority: 4
+NamespaceIndentation: Inner
+ReflowComments: false

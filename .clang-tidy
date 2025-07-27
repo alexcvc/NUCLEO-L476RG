@@ -1,0 +1,122 @@
+# Based on https://github.com/googleapis/google-cloud-cpp/blob/main/.clang-tidy
+# Here is an explanation for why some of the checks are disabled:
+#
+#  -modernize-use-trailing-return-type: clang-tidy recommends using
+#      `auto Foo() -> std::string { return ...; }`, we think the code is less
+#      readable in this form.
+#
+#  -modernize-return-braced-init-list: We think removing typenames and using
+#      only braced-init can hurt readability.
+#
+#  -performance-move-const-arg: This warning requires the developer to
+#      know/care more about the implementation details of types/functions than
+#      should be necessary. For example, `A a; F(std::move(a));` will trigger a
+#      warning IFF `A` is a trivial type (and therefore the move is
+#      meaningless). It would also warn if `F` accepts by `const&`, which is
+#      another detail that the caller need not care about.
+#
+#  -readability-redundant-declaration: A friend declaration inside a class
+#      counts as a declaration, so if we also declare that friend outside the
+#      class in order to document it as part of the public API, that will
+#      trigger a redundant declaration warning from this check.
+#
+#  -misc-no-recursion: Allow recursions
+#
+#  -modernize-use-trailing-return-type: Does not fit to legacy code surrounding
+#      and reduces readability.
+#
+#  -readability-uppercase-literal-suffix: Superfluous nitpicking.
+
+Checks: >
+  *,
+  -abseil-*,
+  -altera-*,
+  -darwin-*,
+  -hicpp-*,
+  -llvmlibc-*,
+  -mpi-*,
+  -objc*,
+  -openmp-*,
+  -zircon-*,
+  -fuchsia-default-arguments-calls,
+  -fuchsia-default-arguments-declarations,
+  -fuchsia-overloaded-operator,
+  -misc-no-recursion,
+  -modernize-use-trailing-return-type,
+  -readability-uppercase-literal-suffix,
+
+# Turn all the warnings from the checks above into errors.
+WarningsAsErrors: >
+  modernize-raw-pointer,
+  modernize-use-nullptr,
+  modernize-use-using,
+  cppcoreguidelines-no-malloc,
+  clang-analyzer-cplusplus.NewDelete,
+#  modernize-use-override,
+#  modernize-avoid-bind,
+#  modernize-redundant-void-arg,
+#  modernize-replace-auto-ptr,
+#  cppcoreguidelines-owning-memory,
+#  cppcoreguidelines-pro-type-member-init,
+#  cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+
+HeaderFilterRegex: '.*\.h{,h,pp}$'
+
+# Google Style patterns. Based on https://gist.github.com/airglow923/1fa3bda42f2b193920d7f46ee8345e04
+CheckOptions:
+  - key:             readability-identifier-naming.ClassCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.ClassMemberCase     # original: lower_case
+    value:           camelBack
+  - key:             readability-identifier-naming.ConstexprVariableCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.ConstexprVariablePrefix
+    value:           k
+  - key:             readability-identifier-naming.EnumCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.EnumConstantCase
+    value:           CamelCase
+  # - key:             readability-identifier-naming.EnumConstantPrefix
+  #   value:           k
+  - key:             readability-identifier-naming.FunctionCase
+    value:           camelBack
+  - key:             readability-identifier-naming.GlobalConstantCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.GlobalConstantPrefix
+    value:           k
+  - key:             readability-identifier-naming.StaticConstantCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.StaticConstantPrefix
+    value:           k
+  - key:             readability-identifier-naming.StaticVariableCase   # original: lower_case
+    value:           camelBack
+  - key:             readability-identifier-naming.MacroDefinitionCase
+    value:           UPPER_CASE
+  - key:             readability-identifier-naming.MacroDefinitionIgnoredRegexp
+    value:           '^[A-Z]+(_[A-Z]+)*_$'
+  - key:             readability-identifier-naming.MemberCase           # original: lower_case
+    value:           CamelCase
+  - key:             readability-identifier-naming.MemberPrefix         # Added
+    value:           'm_'
+  #- key:             readability-identifier-naming.PrivateMemberSuffix # Disabled
+  #  value:           _
+  - key:             readability-identifier-naming.PublicMemberSuffix
+    value:           ''
+  - key:             readability-identifier-naming.NamespaceCase         # original: lower_case
+    value:           camelBack
+  - key:             readability-identifier-naming.ParameterCase         # original: lower_case
+    value:           camelBack
+  - key:             readability-identifier-naming.TypeAliasCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.TypedefCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.VariableCase          # original: lower_case
+    value:           camelBack
+  - key:             readability-identifier-naming.IgnoreMainLikeFunctions
+    value:           1
+  - key:             readability-identifier-length.IgnoredVariableNames
+    value:           '[_|j|cb|dm|it|lk]'
+  - key:             readability-identifier-length.IgnoredParameterNames
+    value:           '[j|cb|dt|ts|u|q]'
+
+FormatStyle: file
