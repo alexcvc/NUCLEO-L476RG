@@ -1,6 +1,6 @@
-# NUCLEO-L476RG
+#NUCLEO-L476RG
 
-*From Book of Dr Dogan IbrahimNucleo Boards Programming with the STM32CubeIDE
-Hands-on in more than 50 projects*
+From the book 'Nucleo Boards Programming with the STM32CubeIDE' by Dr Dogan Ibrahim.
+Hands-on with more than 50 projects.
 
-All the projects from the book and not only have been tested.
+All of the projects in the book have been tested.
